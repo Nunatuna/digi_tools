@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digi Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#333333;
+    --paper-line:#dff6f9;
+    --card:#051719;
+    --ink:#efecf0;
+    --ink-soft:#efecf0;
+    --accent:#87e2e8;
+    --accent-bg:#E4EEE9;
+    --focus:#87e2e8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.45;
+    min-height:100vh;
+  }
+  ::selection{ background:#CFE0D9; }
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:40px 28px 80px;
+  }
+
+  header.top{
+    border-bottom:1px solid var(--paper-line);
+    padding-bottom:22px;
+    margin-bottom:34px;
+  }
+  header.top h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(28px,4vw,38px);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  header.top p{
+    margin:6px 0 0;
+    color:var(--ink-soft);
+    font-size:15px;
+    max-width:52ch;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:14px;
+  }
+
+  a.card{
+    display:block;
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    padding:18px 20px;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color 0.15s ease;
+  }
+  a.card:hover{ border-color:var(--accent); }
+
+  .card-name{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:17px;
+    margin:0 0 6px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .card-name .arrow{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--ink-soft);
+    font-size:13px;
+    flex-shrink:0;
+  }
+
+  .card-desc{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <h1>Digi Tools</h1>
+      <p>Digi Tools, together, strong.</p>
+    </header>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+<script>
+  // ---- Redigher denne liste for at tilføje eller fjerne værktøjer ----
+  const tools = [
+    { name: "Vagtplan generator", desc: "Generer en vagtplan på få klik, og kopier den direkte ind i en mail.", url: "https://nunatuna.github.io/digi_vagtplan" },
+	<!-- { name: "Vagtplan generator", desc: "Generer en vagtplan på få klik, og kopier den direkte ind i en mail.", url: "https://nunatuna.github.io/digi_vagtplan" }, -->
+	<!-- { name: "Vagtplan generator", desc: "Generer en vagtplan på få klik, og kopier den direkte ind i en mail.", url: "https://nunatuna.github.io/digi_vagtplan" }, -->
+  ];
+  // ------------------------------------------------
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  const grid = document.getElementById('grid');
+  tools.forEach(t => {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = t.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `
+      <p class="card-name">${escapeHtml(t.name)} <span class="arrow">&rarr;</span></p>
+      <p class="card-desc">${escapeHtml(t.desc || '')}</p>
+    `;
+    grid.appendChild(a);
+  });
+</script>
+</body>
+</html>
